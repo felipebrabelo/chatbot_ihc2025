@@ -18,7 +18,7 @@
       <ion-item routerLink="/sleep-chat" *ngIf="isLoggedIn"><ion-icon name="bed-outline" slot="start"></ion-icon>Chat Insônia</ion-item>
       <ion-item routerLink="/personal-diary" *ngIf="isLoggedIn"><ion-icon [src]="'../../assets/icon/diary-journal.svg'" slot="start"></ion-icon>Diário Pessoal</ion-item>
       <ion-item><ion-icon name="settings-outline" slot="start"></ion-icon> Configurações</ion-item>
-      <ion-item routerLink="/login" *ngIf="!isLoggedIn"><ion-icon name="enter-outline" slot="start"></ion-icon>Login</ion-item>
+      <ion-item routerLink="/home" *ngIf="!isLoggedIn"><ion-icon name="enter-outline" slot="start"></ion-icon>Login</ion-item>
       <ion-item button (click)="logout()" *ngIf="isLoggedIn"><ion-icon name="exit-outline" slot="start"></ion-icon>Sair</ion-item>
 
     </ion-list>

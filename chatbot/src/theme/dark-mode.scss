@@ -1,0 +1,22 @@
+// Dark mode variables
+body.dark-mode {
+  --background-primary: #1a1a2e;
+  --background-secondary: #16213e;
+  --sidebar-bg: #2d2d44;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --border-color: #3a3a52;
+  --card-bg: #252538;
+  --hover-bg: rgba(201, 184, 231, 0.1);
+}
+
+body {
+  --background-primary: #ffffff;
+  --background-secondary: #f5f5f5;
+  --sidebar-bg: #C9B8E7;
+  --text-primary: #432E65;
+  --text-secondary: #432E65;
+  --border-color: #D9D9D9;
+  --card-bg: #ffffff;
+  --hover-bg: rgba(67, 46, 101, 0.1);
+}

@@ -35,6 +35,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/breathing/breathing.module').then( m => m.BreathingPageModule)
   },
   {
+    path: 'exercises',
+    loadChildren: () => import('./pages/exercises/exercises.module').then( m => m.ExercisesPageModule)
+  },
+  {
+    path: 'reports',
+    loadChildren: () => import('./pages/reports/reports.module').then( m => m.ReportsPageModule)
+  },
+  {
     path: 'sleep-chat',
     loadChildren: () => import('./pages/sleep-chat/sleep-chat.module').then( m => m.SleepChatPageModule),
     canActivate: [AuthGuard],
@@ -45,7 +53,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/personal-diary/personal-diary.module').then( m => m.PersonalDiaryPageModule),
     canActivate: [AuthGuard],
     canLoad: [AuthGuard]
+  },  {
+    path: 'history-chat',
+    loadChildren: () => import('./pages/history-chat/history-chat.module').then( m => m.HistoryChatPageModule)
   },
+
 ];
 
 @NgModule({

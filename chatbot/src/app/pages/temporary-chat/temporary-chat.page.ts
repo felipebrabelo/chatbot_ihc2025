@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ChatService } from '../../services/chat.service';
+import { ThemeService } from '../../services/theme.service';
 import { Chart } from 'chart.js';
 
 @Component({
@@ -13,17 +15,51 @@ export class TemporaryChatPage implements OnInit {
   @ViewChild('chatContainer') private chatContainer!: ElementRef;
   chart: Chart | null = null;
 
-  constructor(private chatService: ChatService) { }
-
-  sessionId = 'sessao_temp'; // pode ser gerado aleatoriamente
+  sessionId = 'temp_' + Math.random().toString(36).substr(2, 9);
   chatType = 'general';
   userMessage = '';
-  // messages: { text: string; sender: 'user' | 'bot' }[] = [];
-
   messages: { text: string; sender: 'user' | 'bot'; chart?: boolean }[] = [];
   isTyping: boolean = false;
+  isDarkMode = false;
+  isMenuMinimized = false;
+
+  constructor(
+    private chatService: ChatService,
+    private themeService: ThemeService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.themeService.darkMode$.subscribe(value => {
+      this.isDarkMode = value;
+    });
+    this.themeService.menuMinimized$.subscribe(value => {
+      this.isMenuMinimized = value;
+    });
+  }
+
+  toggleDarkMode() {
+    this.themeService.toggleDarkMode();
+  }
+
+  toggleMenu() {
+    this.themeService.toggleMenu();
+  }
+
+  goToHome() {
+    this.router.navigate(['/home']);
+  }
+
+  goToExercises() {
+    this.router.navigate(['/exercises']);
+  }
+
+  goToBreathing() {
+    this.router.navigate(['/breathing']);
+  }
+
+  goToReport() {
+    this.router.navigate(['/reports']);
   }
 
   ngAfterViewChecked() {

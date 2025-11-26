@@ -1,25 +1,118 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button menu="main"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Breathing</ion-title>
-    <ion-buttons slot="end">
-      <ion-button routerLink="/temporary-chat" fill="clear">
-        <ion-icon name="chatbubble-ellipses-outline" style="font-size: 22px;"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>  
-</ion-header>
+<div class="lotus-container" [class.dark-mode]="isDarkMode">
+  <!-- Sidebar -->
+  <div class="sidebar" [class.minimized]="isMenuMinimized">
+    <div class="sidebar-header">
+      <h2>Home</h2>
+    </div>
 
-<ion-content class="ion-padding">
+    <!-- Menu Principal -->
+    <div class="main-menu">
+      <div class="menu-item" (click)="newChat()">
+        <ion-icon name="chatbubble-outline"></ion-icon>
+        <span>Novo Chat</span>
+      </div>
+      <div class="menu-item" (click)="goToExercises()">
+        <ion-icon name="fitness-outline"></ion-icon>
+        <span>Exercícios</span>
+      </div>
+      <div class="menu-item active" (click)="goToBreathing()">
+        <ion-icon name="flower-outline"></ion-icon>
+        <span>Respiração</span>
+      </div>
+      <div class="menu-item" (click)="goToReport()">
+        <ion-icon name="stats-chart-outline"></ion-icon>
+        <span>Relatórios</span>
+      </div>
+    </div>
 
-  <!-- container centralizado -->
-    <div class="center-container">
-    <div class="pulse-circle" [class.paused]="!isAnimating">
-      <ion-button fill="clear" (click)="toggleAnimation()">
-        {{ isAnimating ? 'Pausar' : 'Iniciar' }}
-      </ion-button>
+    <!-- Histórico -->
+    <div class="history-section">
+      <h3>Histórico</h3>
+      <div class="history-item" *ngFor="let week of weeks">
+        <div class="history-main" (click)="selectWeek(week)">
+          <div class="history-title">{{ week.title }}</div>
+          <div class="history-date">{{ week.date }}</div>
+          <div class="history-preview">{{ week.preview }}</div>
+        </div>
+        <ion-button class="open-chat-button" fill="solid" (click)="openConversationPage(week); $event.stopPropagation()">
+          Abrir
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Footer Settings -->
+    <div class="sidebar-footer">
+      <div class="footer-item" (click)="goToTemporaryChat()">
+        <ion-icon name="person-outline"></ion-icon>
+        <span>Entrar</span>
+      </div>
+      <div class="footer-item" (click)="toggleDarkMode()">
+        <ion-icon [name]="isDarkMode ? 'sunny-outline' : 'moon-outline'"></ion-icon>
+        <span>{{ isDarkMode ? 'Modo Claro' : 'Modo Noturno' }}</span>
+      </div>
+      <div class="footer-item" (click)="toggleMenu()">
+        <ion-icon [name]="isMenuMinimized ? 'chevron-forward-outline' : 'chevron-back-outline'"></ion-icon>
+        <span>{{ isMenuMinimized ? 'Expandir' : 'Minimizar' }}</span>
+      </div>
     </div>
   </div>
-</ion-content>
+
+  <!-- Conteúdo Principal -->
+  <div class="main-content">
+    <!-- Header -->
+    <div class="content-header">
+      <h1>LÓTUS <ion-icon name="flower-outline" class="lotus-icon"></ion-icon></h1>
+      <ion-button class="sos-button" fill="solid">
+        SOS
+      </ion-button>
+    </div>
+
+    <!-- Breathing Area -->
+    <div class="breathing-area">
+      <div class="breathing-header">
+        <h2 class="breathing-title">Respiração Guiada</h2>
+        <p class="breathing-subtitle">Encontre seu equilíbrio interior através da respiração consciente</p>
+      </div>
+
+      <!-- Círculo de Respiração -->
+      <div class="breathing-main">
+        <!-- Contador de Ciclos (Esquerda - espaço reservado) -->
+        <div class="cycle-counter-placeholder"></div>
+        
+        <div class="breathing-container">
+          <div class="breathing-circle-outer" [class.paused]="!isAnimating">
+            <div class="breathing-circle" [class.paused]="!isAnimating">
+              <p class="breathing-text">{{ breathingText }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contador de Ciclos (Direita) -->
+        <div class="cycle-counter" *ngIf="isAnimating">
+          <p class="cycle-label">Ciclo</p>
+          <p class="cycle-number">{{ cycleCount }}</p>
+        </div>
+        <div class="cycle-counter-placeholder" *ngIf="!isAnimating"></div>
+      </div>
+
+      <!-- Controles e Info -->
+      <div class="breathing-footer">
+        <div class="breathing-info">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <p>4 segundos inspirar • 4 segundos segurar • 4 segundos expirar</p>
+        </div>
+        
+        <div class="controls">
+          <ion-button class="control-button" (click)="toggleAnimation()" [class.active]="isAnimating">
+            <ion-icon [name]="isAnimating ? 'pause' : 'play'"></ion-icon>
+            <span>{{ isAnimating ? 'Pausar' : 'Iniciar' }}</span>
+          </ion-button>
+          <ion-button class="reset-button" (click)="resetExercise()" [disabled]="cycleCount === 0">
+            <ion-icon name="refresh"></ion-icon>
+            <span>Reiniciar</span>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

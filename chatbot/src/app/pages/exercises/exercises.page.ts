@@ -2,21 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
 
+interface Tip {
+  title: string;
+  description: string;
+  likes: number;
+  readTime: number;
+}
+
 @Component({
-  selector: 'app-breathing',
-  templateUrl: './breathing.page.html',
-  styleUrls: ['./breathing.page.scss'],
+  selector: 'app-exercises',
+  templateUrl: './exercises.page.html',
+  styleUrls: ['./exercises.page.scss'],
   standalone: false
 })
-export class BreathingPage implements OnInit {
+export class ExercisesPage implements OnInit {
 
-  isAnimating = false;
-  breathingText = 'Clique em Iniciar';
   isDarkMode = false;
   isMenuMinimized = false;
-  cycleCount = 0;
   selectedConversation: any = null;
-  private breathingInterval: any;
 
   weeks = [
     { 
@@ -72,7 +75,49 @@ export class BreathingPage implements OnInit {
       ]
     }
   ];
-  
+
+  qualidadeVidaTips: Tip[] = [
+    {
+      title: 'Rotina de Sono Regular',
+      description: 'Estabeleça um horário fixo para dormir e acordar. Um sono de qualidade é fundamental para a saúde física e mental, melhorando memória, humor e sistema imunológico.',
+      likes: 124,
+      readTime: 3
+    },
+    {
+      title: 'Hidratação Adequada',
+      description: 'Beba pelo menos 2 litros de água por dia. A hidratação adequada melhora a concentração, energia, digestão e ajuda na eliminação de toxinas do organismo.',
+      likes: 98,
+      readTime: 2
+    },
+    {
+      title: 'Atividade Física Diária',
+      description: 'Pratique pelo menos 30 minutos de exercícios moderados diariamente. Caminhadas, yoga ou dança liberam endorfinas, reduzem estresse e melhoram a saúde cardiovascular.',
+      likes: 156,
+      readTime: 4
+    }
+  ];
+
+  autoconhecimentoTips: Tip[] = [
+    {
+      title: 'Diário de Gratidão',
+      description: 'Escreva diariamente 3 coisas pelas quais você é grato. Esta prática simples aumenta a positividade, reduz ansiedade e melhora a percepção sobre sua vida.',
+      likes: 187,
+      readTime: 3
+    },
+    {
+      title: 'Meditação Mindfulness',
+      description: 'Dedique 10 minutos diários à meditação. A prática regular aumenta a autoconsciência, reduz reatividade emocional e melhora o foco no presente.',
+      likes: 142,
+      readTime: 5
+    },
+    {
+      title: 'Reflexão Semanal',
+      description: 'Reserve um momento no fim de semana para refletir sobre seus sentimentos, conquistas e desafios. Identifique padrões de comportamento e áreas de crescimento pessoal.',
+      likes: 95,
+      readTime: 4
+    }
+  ];
+
   constructor(private themeService: ThemeService, private router: Router) { }
 
   ngOnInit() {
@@ -82,12 +127,6 @@ export class BreathingPage implements OnInit {
     this.themeService.menuMinimized$.subscribe(value => {
       this.isMenuMinimized = value;
     });
-  }
-
-  ngOnDestroy() {
-    if (this.breathingInterval) {
-      clearInterval(this.breathingInterval);
-    }
   }
 
   newChat() {
@@ -126,62 +165,6 @@ export class BreathingPage implements OnInit {
 
   toggleMenu() {
     this.themeService.toggleMenu();
-  }
-
-  toggleAnimation() {
-    this.isAnimating = !this.isAnimating;
-    if (this.isAnimating) {
-      this.startBreathingCycle();
-    } else {
-      if (this.breathingInterval) {
-        clearInterval(this.breathingInterval);
-      }
-      this.breathingText = 'Pausado';
-    }
-  }
-
-  resetExercise() {
-    this.isAnimating = false;
-    this.cycleCount = 0;
-    this.breathingText = 'Clique em Iniciar';
-    if (this.breathingInterval) {
-      clearInterval(this.breathingInterval);
-    }
-  }
-
-  startBreathingCycle() {
-    if (this.breathingInterval) {
-      clearInterval(this.breathingInterval);
-    }
-    
-    let phase = 0; // 0: inspire, 1: hold, 2: expire, 3: hold
-    const phaseDuration = 4000; // 4 segundos cada fase
-    
-    const updateText = () => {
-      switch(phase) {
-        case 0:
-          this.breathingText = 'Inspire';
-          break;
-        case 1:
-          this.breathingText = 'Segure';
-          break;
-        case 2:
-          this.breathingText = 'Expire';
-          break;
-        case 3:
-          this.breathingText = 'Segure';
-          this.cycleCount++;
-          break;
-      }
-      phase = (phase + 1) % 4;
-    };
-    
-    updateText();
-    this.breathingInterval = setInterval(() => {
-      if (this.isAnimating) {
-        updateText();
-      }
-    }, phaseDuration);
   }
 
 }

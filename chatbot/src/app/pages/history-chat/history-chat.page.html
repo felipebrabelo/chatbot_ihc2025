@@ -2,7 +2,7 @@
   <!-- Sidebar -->
   <div class="sidebar" [class.minimized]="isMenuMinimized">
     <div class="sidebar-header">
-      <h2>Chat Anônimo</h2>
+      <h2>Chat</h2>
     </div>
 
     <!-- Menu Principal -->
@@ -25,15 +25,15 @@
       </div>
     </div>
 
-    <!-- Info Session -->
-    <div class="session-info">
+    <!-- Info da Conversa -->
+    <div class="conversation-info">
       <div class="info-header">
-        <ion-icon name="shield-checkmark-outline"></ion-icon>
-        <h3>Sessão Privada</h3>
+        <ion-icon name="time-outline"></ion-icon>
+        <h3>Conversa Anterior</h3>
       </div>
       <div class="info-content">
-        <p>Sua conversa é temporária e não será salva.</p>
-        <p class="session-id">ID: {{ sessionId }}</p>
+        <p class="info-title">{{ conversation?.title }}</p>
+        <p class="info-date">{{ conversation?.date }}</p>
       </div>
     </div>
 

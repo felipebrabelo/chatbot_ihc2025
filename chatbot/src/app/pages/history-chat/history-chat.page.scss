@@ -38,7 +38,7 @@ ion-content {
     padding: 15px 10px;
 
     .sidebar-header h2,
-    .session-info,
+    .conversation-info,
     .menu-item span,
     .footer-item span {
       display: none;
@@ -94,7 +94,7 @@ ion-content {
   }
 }
 
-.session-info {
+.conversation-info {
   flex: 1;
   background: var(--card-bg);
   border-radius: 12px;
@@ -125,22 +125,18 @@ ion-content {
 }
 
 .info-content {
-  p {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.5;
+  .info-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
     margin: 0 0 8px 0;
   }
 
-  .session-id {
-    font-size: 11px;
-    font-family: monospace;
-    background: var(--hover-bg);
-    padding: 6px 10px;
-    border-radius: 6px;
-    margin-top: 10px;
-    color: var(--text-primary);
+  .info-date {
+    font-size: 13px;
+    color: var(--text-secondary);
     opacity: 0.8;
+    margin: 0;
   }
 }
 
@@ -466,7 +462,7 @@ ion-content {
     padding: 15px 10px;
 
     .sidebar-header h2,
-    .session-info,
+    .conversation-info,
     .menu-item span,
     .footer-item span {
       display: none;

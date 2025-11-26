@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   private checkAuth(): boolean {
     const isLogged = this.auth.isLoggedIn();
     if (!isLogged) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
     }
     return isLogged;
   }

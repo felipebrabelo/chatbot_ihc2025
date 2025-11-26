@@ -70,6 +70,6 @@ export class RegisterPage {
   }
 
   goToLogin() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 }
